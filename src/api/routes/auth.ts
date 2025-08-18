@@ -1,21 +1,21 @@
-import { Router, Request, Response, NextFunction } from "express";
-import { jwtAuth } from "../middleware/authentication";
+import { Router, Request, Response } from "express";
+import { getAuthStatus } from "../middleware/authentications.js";
 
 const router = Router();
 
-router.get("/", async (req: Request, res: Response, next: NextFunction) => {
+router.get("/", async (req: Request, res: Response): Promise<Response> => {
     try {
-        const auth = await jwtAuth(req, res, next);
-
-        if (auth.authStatus === true) {
-            return res.status(200).json({ authStatus: true });
-        } else if (auth.authStatus === false) {
-            return res.status(401).json({ authStatus: false });
-        } else {
-            return res.status(403).json({ authStatus: auth.authStatus });
+        const auth = getAuthStatus(req);
+        if (auth.status !== "ok" || !auth.payload) {
+            const map: Record<string, number> = { missing: 401, invalid: 401, expired: 401 };
+            return res.status(map[auth.status] ?? 401).json({ authStatus: false, reason: auth.status });
         }
-    } catch (err: any) {
-        return res.status(500).json({ error: "Internal Server Error", message: err.message });
+
+        return res.status(200).json({
+            authStatus: true,
+        });
+    } catch (err) {
+        return res.status(500).json({ error: "Internal Server Error", details: (err as Error).message });
     }
 });
 

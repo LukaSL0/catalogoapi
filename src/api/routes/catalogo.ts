@@ -1,5 +1,5 @@
 import { Router, Request, Response } from "express";
-import { Catalogo } from "../../db/modules/catalogo";
+import { Catalogo } from "../../db/models/catalogoModel.js";
 
 const router = Router();
 

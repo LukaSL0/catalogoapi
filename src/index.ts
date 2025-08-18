@@ -2,12 +2,12 @@ import express, { Request, Response, NextFunction } from "express";
 import session from "express-session";
 import cors from "cors";
 import bodyParser from "body-parser";
-import routes from "./api/routes.js";
 import helmet from "helmet";
 import { v4 as uuidv4 } from "uuid";
-import { validateRequest } from "./api/middleware/validateRequest";
 import * as dotenv from "dotenv";
-import { connectDatabase } from "./db/database";
+import apiRouter from "./api/routes.js";
+import { validateRequest } from "./api/middleware/validateRequest.js";
+import { connectDatabase } from "./db/database.js";
 
 dotenv.config();
 connectDatabase();
@@ -45,7 +45,7 @@ app.use(session({
     }
 }));
 
-app.use(routes);
+app.use(apiRouter);
 
 app.get("/", (_req: Request, res: Response) => {
     res.status(200).json({ status: "Online" });

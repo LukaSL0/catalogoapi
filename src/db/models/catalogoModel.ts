@@ -21,7 +21,7 @@ export interface ICatalogo extends Document {
   visivel: boolean;
 }
 
-const CatalogoSchema: Schema<ICatalogo> = new Schema({
+const catalogoSchema: Schema<ICatalogo> = new Schema({
   id: { type: Number, required: true },
   slug: { type: String, required: true },
   imagem: { type: String, required: true },
@@ -42,4 +42,4 @@ const CatalogoSchema: Schema<ICatalogo> = new Schema({
   visivel: { type: Boolean, required: true }
 });
 
-export const Catalogo: Model<ICatalogo> = mongoose.model<ICatalogo>("catalogo", CatalogoSchema);
+export const Catalogo: Model<ICatalogo> = mongoose.model<ICatalogo>("catalogo", catalogoSchema);

@@ -1,7 +1,7 @@
 import { Router, Request, Response } from "express";
-import { Produtores } from "../../db/modules/produtores";
-import { Catalogo } from "../../db/modules/catalogo";
-import { Status } from "../../db/modules/status";
+import { Produtor } from "../../db/models/produtorModel.js";
+import { Catalogo } from "../../db/models/catalogoModel.js";
+import { Status } from "../../db/models/statusModel.js";
 
 const router = Router();
 
@@ -9,7 +9,7 @@ router.post("/add-produtor", async (req: Request, res: Response) => {
     const { produtor } = req.body;
 
     try {
-        const newProdutor = new Produtores(produtor);
+        const newProdutor = new Produtor(produtor);
         await newProdutor.save();
         return res.status(201).json({ message: "Produtor adicionado com sucesso!", produtor: newProdutor });
     } catch (err: any) {
@@ -22,7 +22,7 @@ router.post("/edit-produtor", async (req: Request, res: Response) => {
     const { produtor } = req.body;
 
     try {
-        const updatedProdutor = await Produtores.findOneAndReplace({ ordem: produtor.ordem }, produtor);
+        const updatedProdutor = await Produtor.findOneAndReplace({ ordem: produtor.ordem }, produtor);
         return res.status(200).json({ message: "Produtor atualizado com sucesso!", produtor: updatedProdutor });
     } catch (err: any) {
         console.error(err);
@@ -34,7 +34,7 @@ router.delete("/delete-produtor/:ordem", async (req: Request, res: Response) => 
     const { ordem } = req.params;
 
     try {
-        await Produtores.findOneAndDelete({ ordem: Number(ordem) });
+        await Produtor.findOneAndDelete({ ordem: Number(ordem) });
         return res.status(200).json({ message: "Produtor deletado com sucesso!" });
     } catch (err: any) {
         console.error(err);

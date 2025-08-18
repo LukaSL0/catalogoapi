@@ -8,7 +8,7 @@ export interface IProdutor extends Document {
   descricao: string;
 }
 
-const ProdutoresSchema: Schema<IProdutor> = new Schema({
+const produtorSchema: Schema<IProdutor> = new Schema({
   ordem: { type: Number, required: true },
   produtor: { type: String, required: true },
   imagem: { type: String, required: true },
@@ -16,4 +16,4 @@ const ProdutoresSchema: Schema<IProdutor> = new Schema({
   descricao: { type: String, required: true }
 });
 
-export const Produtores: Model<IProdutor> = mongoose.model<IProdutor>("Produtores", ProdutoresSchema);
+export const Produtor: Model<IProdutor> = mongoose.model<IProdutor>("Produtores", produtorSchema);
