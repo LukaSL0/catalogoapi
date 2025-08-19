@@ -1,5 +1,5 @@
 import { Router, Request, Response } from "express";
-import { getAuthStatus } from "../middleware/authentications.js";
+import { getAuthStatus } from "../middlewares/authentications.js";
 
 const router = Router();
 

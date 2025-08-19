@@ -7,7 +7,7 @@ import adminRouter from "./routes/admin.js";
 
 const router = Router();
 
-const routeMap: ReadonlyArray<[path: string, r: ReturnType<typeof Router>]> = [
+const routeMap: [string, Router][] = [
 	["/auth", authRouter],
 	["/login", loginRouter],
 	["/produtores", produtoresRouter],

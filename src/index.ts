@@ -5,8 +5,8 @@ import bodyParser from "body-parser";
 import helmet from "helmet";
 import { v4 as uuidv4 } from "uuid";
 import * as dotenv from "dotenv";
-import apiRouter from "./api/routes.js";
-import { validateRequest } from "./api/middleware/validateRequest.js";
+import apiRouter from "./api/index.js";
+import { validateRequest } from "./api/middlewares/validateRequest.js";
 import { connectDatabase } from "./db/database.js";
 
 dotenv.config();
